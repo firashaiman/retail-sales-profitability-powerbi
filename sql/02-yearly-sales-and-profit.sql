@@ -1,0 +1,9 @@
+SELECT
+    YEAR(STR_TO_DATE(TRIM(`Order Date`), '%d/%m/%Y')) AS sales_year,
+    COUNT(DISTINCT `Order ID`) AS total_orders,
+    ROUND(SUM(`Sales`), 2) AS total_sales,
+    ROUND(SUM(`Profit`), 2) AS total_profit,
+    ROUND(100 * SUM(`Profit`) / NULLIF(SUM(`Sales`), 0), 2) AS profit_margin_pct
+FROM superstore_sales.orders_staging
+GROUP BY sales_year
+ORDER BY sales_year;
